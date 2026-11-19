@@ -151,6 +151,7 @@ The pipeline deliberately stays small enough to keep every step verifiable on a 
 | Stage | What happens | Evidence |
 | --- | --- | --- |
 | Build | `npm ci` then `npm run build` | Fresh clone of this repository builds reproducibly: JS 179.59 kB (gzip 56.64 kB), CSS 14.41 kB, 16 precached entries (201.5 KiB) |
+| CI | `.github/workflows/ci.yml` on every push to `main`: checkout → Node 20 → `npm ci` → `npm run build` → upload `dist` | green GitHub Actions run for the current `main` |
 | Verify | manual checklist (section 7) on `npm run preview` — the service worker only exists in a production build | screenshots in `docs/shots/` |
 | Release | `PAGES_BASE=/myfridge/ npm run build`, then push `dist/` to the `gh-pages` branch | live site at https://jiej-eng.github.io/myfridge/ |
 | Rollback | `gh-pages` is a normal branch, so `git revert`/`git reset` on it restores the previous build | — |

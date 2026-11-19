@@ -712,7 +712,7 @@ kv_table(slide, M, 1.72, 7.6, [
     ("7", "Camera capture and upload fallback", "Pass · 720 px JPEG stored, thumbnail survives reload"),
     ("8", "Reminder permission → notification", "Pass · single notification, duplicate tag respected"),
     ("9", "Manifest and service worker in DevTools", "Pass · installable, standalone display, offline reload"),
-    ("10", "Clean clone → npm ci → npm run build", "Pass · same bundle, 201 KiB precache"),
+    ("10", "CI workflow (npm ci → build) on every push", "Pass · green GitHub Actions run on main"),
 ], [0.06, 0.44, 0.5], row_height=0.44, font_size=8.8)
 
 card(slide, 8.5, 1.72, 4.2, 1.3, "Build evidence",
@@ -764,7 +764,7 @@ slide_title(slide, "13 · Conclusion", "Outcome, lessons learned and recommendat
 card(slide, M, 1.72, 3.8, 1.95, "Outcome",
      "MyFridge meets every minimum requirement of the brief: an installable PWA with full CRUD and "
      "persistence, two device APIs (camera and notifications), a responsive UI and a documented, "
-     "public repository with a reproducible, documented build.", body_size=10)
+     "public repository with a documented build and green CI.", body_size=10)
 
 card(slide, 4.7, 1.72, 3.8, 1.95, "Lessons learned",
      "Hooks are the natural seam between UI and data. Constraints (quota, permissions, offline) shape the "
