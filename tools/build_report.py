@@ -590,7 +590,7 @@ slide = add_slide()
 slide_title(slide, "08 · Deployment", "PWA: one build that installs, launches full-screen and works offline",
             "The manifest and the Workbox service worker are generated at build time by vite-plugin-pwa.")
 
-code_block(slide, M, 1.95, 6.0, 4.15, """// vite.config.js
+code_block(slide, M, 1.95, 6.0, 4.15, """// vite.config.js  (base = '/myfridge/' on Pages)
 VitePWA({
   registerType: 'autoUpdate',
   manifest: {
@@ -599,7 +599,8 @@ VitePWA({
     display: 'standalone',
     theme_color: '#0f766e',
     background_color: '#f6fbf8',
-    start_url: '/',
+    start_url: base,
+    scope: base,
     icons: [
       { src: 'icons/pwa-192.png', sizes: '192x192' },
       { src: 'icons/pwa-512.png', sizes: '512x512' },
@@ -616,7 +617,7 @@ VitePWA({
 bullets(slide, 6.85, 1.9, 5.8, 4.6, [
     ("Build output (verified)", 0, True),
     ("npm run build → dist/manifest.webmanifest, dist/sw.js, dist/workbox-*.js, 16 precached entries "
-     "(≈ 198 KiB) — the app shell loads with no network.", 1),
+     "(≈ 202 KiB) — the app shell loads with no network.", 1),
     ("Standalone display", 0, True),
     ("Once installed, the app opens without browser chrome; iOS uses Add to Home Screen, Android and "
      "desktop Chrome/Edge use the built-in install prompt.", 1),
@@ -624,7 +625,7 @@ bullets(slide, 6.85, 1.9, 5.8, 4.6, [
     ("A new deployment is picked up on the next visit and stale precache entries are deleted — no "
      "“why is my old build still showing?” during marking.", 1),
     ("Deployment target", 0, True),
-    ("Vercel: framework preset Vite, build npm run build, output dist. HTTPS is required for the camera, "
+    ("GitHub Pages (branch gh-pages, built with PAGES_BASE=/myfridge/). HTTPS is required for the camera, "
      "notifications and service worker; localhost is the only exception.", 1),
 ], size=10.5, gap=7)
 footer(slide, 9)
@@ -660,7 +661,7 @@ slide_title(slide, "10 · Setup and user guide", "From a clean machine to a runn
             "Also documented in README.md, which ships inside the repository.")
 
 code_block(slide, M, 1.9, 6.35, 2.55, """# 1. clone
-git clone https://github.com/<username>/myfridge.git
+git clone https://github.com/Jiej-eng/myfridge.git
 cd myfridge
 
 # 2. install dependencies (Node 18+)
@@ -675,14 +676,14 @@ npm run build && npm run preview""", size=9.5)
 kv_table(slide, M, 4.7, 6.35, [
     ("Requirement", "Detail"),
     ("Runtime", "Node.js 18+ (verified on Node 22) and npm 9+"),
-    ("Repository", "github.com/<username>/myfridge — public, with README.md"),
-    ("Live demo", "Vercel deployment (HTTPS) — or local preview for the video"),
+    ("Repository", "github.com/Jiej-eng/myfridge — public, with README.md"),
+    ("Live demo", "jiej-eng.github.io/myfridge — HTTPS, installable"),
     ("Demo data", "Open ?demo=1 to seed five sample items"),
 ], [0.3, 0.7], row_height=0.4, font_size=9.5)
 
 bullets(slide, 7.15, 1.9, 5.5, 2.0, [
     ("README contents", 0, True),
-    ("Prerequisites, install/dev/build/preview commands, Vercel deployment, install-as-app steps for "
+    ("Prerequisites, install/dev/build/preview commands, GitHub Pages deployment, install-as-app steps for "
      "Android, iOS and desktop, data model, test checklist, troubleshooting table and references.", 1),
 ], size=10.5, gap=6)
 bullets(slide, 7.15, 3.75, 5.5, 2.9, [
@@ -702,7 +703,7 @@ slide_title(slide, "11 · Verification", "What was tested, and the evidence that
 
 kv_table(slide, M, 1.72, 7.6, [
     ("#", "Check performed", "Result"),
-    ("1", "Production build completes (vite build + PWA plugin)", "Pass · JS 176 kB (55.7 kB gzip), CSS 13.8 kB, 16 precache entries"),
+    ("1", "Production build completes (vite build + PWA plugin)", "Pass · JS 179.6 kB (56.6 kB gzip), CSS 14.4 kB, 16 precache entries"),
     ("2", "Create an item, reload the page", "Pass · item restored from localStorage"),
     ("3", "Quantity − / + at the boundary", "Pass · clamps at 1, persisted after reload"),
     ("4", "Edit expiry date to yesterday", "Pass · badge flips to Expired, countdown “Expired 1 day ago”"),
@@ -711,7 +712,7 @@ kv_table(slide, M, 1.72, 7.6, [
     ("7", "Camera capture and upload fallback", "Pass · 720 px JPEG stored, thumbnail survives reload"),
     ("8", "Reminder permission → notification", "Pass · single notification, duplicate tag respected"),
     ("9", "Manifest and service worker in DevTools", "Pass · installable, standalone display, offline reload"),
-    ("10", "CI workflow (install → build) on push", "Pass · green build in a clean container"),
+    ("10", "Clean clone → npm ci → npm run build", "Pass · same bundle, 201 KiB precache"),
 ], [0.06, 0.44, 0.5], row_height=0.44, font_size=8.8)
 
 card(slide, 8.5, 1.72, 4.2, 1.3, "Build evidence",
@@ -763,7 +764,7 @@ slide_title(slide, "13 · Conclusion", "Outcome, lessons learned and recommendat
 card(slide, M, 1.72, 3.8, 1.95, "Outcome",
      "MyFridge meets every minimum requirement of the brief: an installable PWA with full CRUD and "
      "persistence, two device APIs (camera and notifications), a responsive UI and a documented, "
-     "public repository with CI.", body_size=10)
+     "public repository with a reproducible, documented build.", body_size=10)
 
 card(slide, 4.7, 1.72, 3.8, 1.95, "Lessons learned",
      "Hooks are the natural seam between UI and data. Constraints (quota, permissions, offline) shape the "

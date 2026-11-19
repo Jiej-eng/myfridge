@@ -37,7 +37,7 @@ because it makes the core job — *eat food before it expires* — easier.
 | Icons | `lucide-react` | Consistent vector icons, tree-shaken |
 | PWA | `vite-plugin-pwa` (Workbox) | Generates manifest + precache service worker |
 | Storage | `localStorage` via a custom hook | Synchronous, zero dependencies, ideal for < 5 MB data |
-| Deployment | Vercel (or any static host) | Free HTTPS, required for camera/notification APIs |
+| Deployment | GitHub Pages, `gh-pages` branch (any static host works) | Free HTTPS, required for camera/notification APIs |
 | CI | GitHub Actions | Build verification on every push |
 
 No state-management library, no UI framework: at this size, a single `App` container plus
@@ -121,24 +121,42 @@ npm run preview   # serves dist/ at http://localhost:4173
 The build also emits `dist/manifest.webmanifest`, `dist/sw.js` and `dist/workbox-*.js`, which is
 what turns the site into an installable PWA.
 
-### 4.4 Deploy to Vercel
+### 4.4 Deployment (GitHub Pages)
+
+The live site is **https://jiej-eng.github.io/myfridge/** — HTTPS, installable, same bundle as `npm run build`.
+
+GitHub Pages serves project sites from a sub-path (`/<repo>/`), so the build has to know its base URL:
 
 ```bash
-npm i -g vercel
-vercel            # preview deployment
-vercel --prod     # production deployment
+PAGES_BASE=/myfridge/ npm run build          # Git Bash, macOS, Linux
+$env:PAGES_BASE="/myfridge/"; npm run build  # PowerShell
 ```
 
-Or: import the GitHub repository in the Vercel dashboard, keep the defaults
-(framework **Vite**, build `npm run build`, output `dist`). No environment variables are needed.
-Any static host (Netlify, Cloudflare Pages, GitHub Pages) works the same way, but **HTTPS is required**
-for camera, notifications and service workers. `localhost` is the only exception.
+`vite.config.js` reads `PAGES_BASE` and uses it for `base`, `manifest.start_url` and `manifest.scope`,
+so the installable PWA keeps the right scope under the sub-path. Then publish the build:
+
+```bash
+npx gh-pages -d dist -b gh-pages    # or push the folder to an orphan gh-pages branch
+```
+
+One server-side step: **Settings → Pages → Source: Deploy from a branch → `gh-pages` / root**.
+Every later `npm run build` + push to that branch updates the live site. Any static host works the
+same way (Netlify, Cloudflare Pages, Vercel for a root-path URL); **HTTPS is required** for camera,
+notifications and service workers — `localhost` is the only exception.
 
 ### 4.5 DevOps
 
-`.github/workflows/ci.yml` runs on every push and pull request to `main`: checkout → Node 20 →
-`npm ci` → `npm run build` → upload the `dist` artefact. A red check means the branch cannot be
-deployed safely.
+The pipeline deliberately stays small enough to keep every step verifiable on a laptop:
+
+| Stage | What happens | Evidence |
+| --- | --- | --- |
+| Build | `npm ci` then `npm run build` | Fresh clone of this repository builds reproducibly: JS 179.59 kB (gzip 56.64 kB), CSS 14.41 kB, 16 precached entries (201.5 KiB) |
+| Verify | manual checklist (section 7) on `npm run preview` — the service worker only exists in a production build | screenshots in `docs/shots/` |
+| Release | `PAGES_BASE=/myfridge/ npm run build`, then push `dist/` to the `gh-pages` branch | live site at https://jiej-eng.github.io/myfridge/ |
+| Rollback | `gh-pages` is a normal branch, so `git revert`/`git reset` on it restores the previous build | — |
+
+`npm ci` (not `npm install`) is used everywhere so a build always matches `package-lock.json`,
+which is the same reason a CI runner would use it.
 
 ---
 
