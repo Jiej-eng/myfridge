@@ -75,8 +75,8 @@ export function useNotifications(items) {
     if (SUPPORTED && Notification.permission === 'granted') {
       new Notification('MyFridge: expiring soon', {
         body,
-        icon: '/icons/pwa-192.png',
-        badge: '/icons/pwa-192.png',
+        icon: `${import.meta.env.BASE_URL}icons/pwa-192.png`,
+        badge: `${import.meta.env.BASE_URL}icons/pwa-192.png`,
         tag: 'myfridge-expiry-check'
       });
     }

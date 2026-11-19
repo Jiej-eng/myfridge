@@ -5,7 +5,12 @@ import { VitePWA } from 'vite-plugin-pwa';
 // Vite configuration for MyFridge.
 // The PWA plugin generates the manifest + service worker at build time,
 // which is what makes the app installable and available offline.
+// `PAGES_BASE` lets the same code be built for a sub-path host (e.g. GitHub Pages
+// project sites, which serve at /<repo>/). Defaults to the site root.
+const base = process.env.PAGES_BASE || '/';
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     VitePWA({
@@ -19,8 +24,8 @@ export default defineConfig({
         background_color: '#f6fbf8',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
-        scope: '/',
+        start_url: base,
+        scope: base,
         icons: [
           { src: 'icons/pwa-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icons/pwa-512.png', sizes: '512x512', type: 'image/png' },
