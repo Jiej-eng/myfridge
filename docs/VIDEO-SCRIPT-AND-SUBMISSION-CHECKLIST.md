@@ -133,7 +133,7 @@
 - [ ] 两个 API 都有「操作演示 + 代码讲解」两部分，不是只有一句话
 - [ ] 每个小段都回到了源码，且鼠标/光标指向正在讲的代码行
 - [ ] 声音清楚、无风扇噪音；画面无个人信息（浏览器书签栏、聊天弹窗、Banner ID 以外的东西）
-- [ ] 导出 mp4（H.264 + AAC），文件名 `DWT-CW01-First-Attempt-B01857661-你的姓名.mp4`
+- [ ] 导出 mp4（H.264 + AAC），文件名 `DWT-CW01-First-Attempt-B01857661-Yijie-Shen.mp4`
 
 ---
 
@@ -148,7 +148,7 @@
 
 ### 2. Part A（40%）
 
-- [ ] 文件名 `DWT-CW01-First-Attempt-B01857661-你的全名.pptx`
+- [ ] 文件名 `DWT-CW01-First-Attempt-B01857661-Yijie-Shen.pptx`
 - [ ] 第一页插入 Aula 上的 **Student Declaration**（作业要求放在文档第一页）
 - [ ] 页数 15 页，处于 10–15 页要求内
 - [ ] 全片无姓名以外的身份信息；Banner ID 按作业要求填写（匿名评分，别加姓名以外的个人信息）
@@ -156,7 +156,7 @@
 
 ### 3. Part B（60%）
 
-- [ ] 文件名 `DWT-CW01-First-Attempt-B01857661-你的全名.mp4`
+- [ ] 文件名 `DWT-CW01-First-Attempt-B01857661-Yijie-Shen.mp4`
 - [ ] 本人英语配音、约 5 分钟、mp4 格式
 - [ ] 提交前自己完整看一遍：能否听清、代码行是否对得上讲解
 

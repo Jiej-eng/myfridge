@@ -292,5 +292,11 @@ Everything is stored under the single key `myfridge.items.v1`, so a schema chang
 
 ## 11. Licence and academic note
 
-Submitted as coursework for COMP10013 at the University of the West of Scotland. The repository
-is public because the brief requires a 24/7 accessible code repository for assessment.
+Submitted as coursework for COMP10013 at the University of the West of Scotland (Yijie Shen,
+B01857661). The repository is public because the brief requires a 24/7 accessible code repository
+for assessment.
+
+**Statement of AI use** — AI was used only as a language aid: grammar, spelling and sentence-level
+phrasing in this README and in the accompanying report were revised with an AI writing assistant.
+No AI tool generated the application's source code, architecture, tests, screenshots or analysis;
+every result in this repository was produced and verified by the author.

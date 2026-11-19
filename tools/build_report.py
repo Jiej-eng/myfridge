@@ -1,7 +1,7 @@
 """Build the Part A report deck for COMP10013 CW01 (MyFridge PWA).
 
 Run:  python tools/build_report.py
-Out:  ../DWT-CW01-PartA-Report-B01857661.pptx
+Out:  ../DWT-CW01-First-Attempt-B01857661-Yijie-Shen.pptx
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from pptx.util import Emu, Inches, Pt
 HERE = Path(__file__).resolve().parent
 PROJECT = HERE.parent
 SHOTS = PROJECT / "docs" / "shots"
-OUT = PROJECT.parent / "DWT-CW01-PartA-Report-B01857661.pptx"
+OUT = PROJECT.parent / "DWT-CW01-First-Attempt-B01857661-Yijie-Shen.pptx"
 
 SW, SH = 13.333, 7.5
 M = 0.62           # page margin
@@ -301,11 +301,11 @@ frame = textbox(slide, M, 4.72, 8.4, 1.6)
 write(frame, "Formal documentation of the development process", size=12.5, color=WHITE, bold=True, font=HEAD_FONT)
 write(frame, "Architecture  ·  implementation evidence  ·  installation and user guide  ·  critical reflection",
       size=11.5, color=RGBColor(0xB9, 0xDF, 0xD8), first=False, space_after=10)
-write(frame, "Banner ID: B01857661      Deadline: 06 December 2026", size=10.5,
+write(frame, "Yijie Shen      Banner ID: B01857661      Deadline: 06 December 2026", size=10.5,
       color=RGBColor(0x9F, 0xD9, 0xD0), first=False)
 
 frame = textbox(slide, SW - 3.5, 6.85, 2.9, 0.3)
-write(frame, "Submitted anonymously", size=9, color=RGBColor(0x8C, 0xC9, 0xC0), align=PP_ALIGN.RIGHT)
+write(frame, "Individual submission · COMP10013 CW01", size=9, color=RGBColor(0x8C, 0xC9, 0xC0), align=PP_ALIGN.RIGHT)
 
 # --------------------------------------------------------------------------- 02 overview
 slide = add_slide()
@@ -818,11 +818,13 @@ refs = [
 ]
 bullets(slide, M, 1.72, CW, 4.9, [(ref, 0) for ref in refs], size=9.5, gap=7, line_spacing=1.2)
 
-card(slide, M, 6.05, CW, 0.75,
-     "Note on generated code",
-     "All source code in the repository was authored for this project; libraries are attributed in "
-     "package.json and in this reference list.",
-     body_size=9.5, title_size=10)
+card(slide, M, 5.95, CW, 0.95,
+     "Statement of AI use",
+     "AI was used only as a language aid: grammar, spelling and sentence-level phrasing in this report "
+     "and in the README were revised with an AI writing assistant. No AI tool generated the application "
+     "code, the architecture, the tests, the screenshots or the analysis presented here; every result "
+     "was produced and verified by the author.",
+     body_size=8.8, title_size=10)
 footer(slide, 15)
 
 prs.save(OUT)
