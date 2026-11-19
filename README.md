@@ -98,7 +98,7 @@ myfridge/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/myfridge.git
+git clone https://github.com/Jiej-eng/myfridge.git
 cd myfridge
 
 # 2. Install dependencies
